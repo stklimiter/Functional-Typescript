@@ -46,6 +46,7 @@ function of<K>(value: K | null | undefined): Maybe<K> {
     return empty as Maybe<K>
 }
 
+
 export const Maybe = {
     empty<T>(): Maybe<T> {
         return empty as Maybe<T>

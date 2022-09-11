@@ -1,5 +1,7 @@
 export type Fn<T, K> = (value: T) => K
 
+export const identity = <T>(value: T) => value
+
 type ComposeArgs<T extends any[], From = any> = T extends [Fn<From, infer To>] ? T :
     T extends [Fn<From, infer To>, ...infer Rest] ?
         [Fn<From, To>, ...ComposeArgs<Rest, To>]
@@ -9,9 +11,7 @@ type ComposeResult<T extends any[]> =
     T extends [Fn<infer From, any>, ...infer Rest, Fn<any, infer To>] ?
         Fn<From, To> : never
 
-
 export const compose = <A, B, C>(first: Fn<A, B>, second: Fn<B, C>) : Fn<A, C>  =>  (value: A) => second(first(value))
-export const compose2 = <A, B, C, D>(first: Fn<A, B>) : Fn<Fn<C,D>, Fn<Fn<B, C>, Fn<A, D>>>  => (thirdFn: Fn<C, D>) => (secondFn: Fn<B, C>) =>  value => thirdFn(secondFn(first(value)))
 
 
 // type Arguments = Parameters<any>
